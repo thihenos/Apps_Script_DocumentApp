@@ -48,7 +48,7 @@ if (selection){
  let doc = DocumentApp.getActiveDocument();
  let body = doc.getBody();
  let finderContent = body.findText('HELLO');
- let x = 0;
+ let x = 1;
  let finderHello = body.findText('hello');
   
 while (finderHello != null){
@@ -57,21 +57,28 @@ while (finderHello != null){
    finderHello = body.findText('hello', finderHello);
 } 
    
-finderContent = body.findText('HELLO');
-while (finderContent){
-  //x = x+1;
-  let outputContent = finderContent.getElement().asText();
-  let startPos = finderContent.getStartOffset();
-  let endPos = finderContent.getEndOffsetInclusive()+1;
-  outputContent.insertText(endPos, ' WORLD ');
-  outputContent.insertText(startPos, ' ' + x + ' ');
-  outputContent.setForegroundColor (startPos, endPos+9, '#FF0000');
-  
-  finderContent = body.findText('HELLO', finderContent);
-  
+while (finderContent != null){
+  if (x<9){
+   x = x+1;
+   let outputContent = finderContent.getElement().asText();
+   let startPos = finderContent.getStartOffset();
+   let endPos = finderContent.getEndOffsetInclusive()+1;
+   outputContent.insertText(endPos, ' WORLD ');
+   outputContent.insertText(startPos, ' ' + x + ' ');
+   outputContent.setForegroundColor (startPos, endPos+9, '#FF0000');
+   finderContent = body.findText('HELLO', finderContent);
+ } else {
+   x = x+1;
+   let outputContent = finderContent.getElement().asText();
+   let startPos = finderContent.getStartOffset();
+   let endPos = finderContent.getEndOffsetInclusive()+1;
+   outputContent.insertText(endPos, ' WORLD ');
+   outputContent.insertText(startPos, x + ' ');
+   outputContent.setForegroundColor (startPos, endPos+9, '#0000FF');
+   finderContent = body.findText('HELLO', finderContent);
+  }
  }
 }
-
 
 function myFun5(){ //adding a bookmark
     let doc = DocumentApp.getActiveDocument();
